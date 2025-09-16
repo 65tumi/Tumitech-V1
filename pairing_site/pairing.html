@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pair with TUMITECH V1</title>
+  <link rel="stylesheet" href="pairing.css" />
+</head>
+<body>
+  <main class="card">
+    <h1>Pair your WhatsApp number with TUMITECH V1</h1>
+    <p>Enter your WhatsApp number (with country code). We'll generate a 6-digit pairing code.</p>
+
+    <label for="phone">WhatsApp number</label>
+    <input id="phone" placeholder="+2348012345678" inputmode="tel" />
+
+    <button id="generate">Generate pairing code</button>
+
+    <div id="result" class="hidden">
+      <h2>Pairing Code</h2>
+      <p id="codeDisplay" class="code"></p>
+      <p id="pairingStatus"></p>
+      <button id="copy">Copy code</button>
+      <button id="finish">I've paired — mark as paired</button>
+    </div>
+
+    <hr />
+    <h3>Existing pairings (local)</h3>
+    <ul id="list"></ul>
+  </main>
+
+  <script src="pairing.js"></script>
+</body>
+</html>
