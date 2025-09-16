@@ -7,15 +7,15 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 
-// Temporary store for pairing codes
+// Store temporary codes
 let codes = {};
 
-// Function to generate random 8-digit code
+// Generate random 8-digit code
 function generateCode() {
   return Math.floor(10000000 + Math.random() * 90000000).toString();
 }
 
-// Route to request a pairing code
+// Request pairing code
 app.post("/pair", (req, res) => {
   const { phone } = req.body;
 
@@ -26,11 +26,11 @@ app.post("/pair", (req, res) => {
   const code = generateCode();
   codes[code] = { phone, createdAt: Date.now() };
 
-  console.log(`[TUMITECH V1] Code ${code} generated for ${phone}`);
+  console.log(`[TUMITECH V1] Pairing code ${code} generated for ${phone}`);
   res.json({ code });
 });
 
-// Route to verify a code
+// Verify code
 app.post("/verify", (req, res) => {
   const { code } = req.body;
 
@@ -44,13 +44,13 @@ app.post("/verify", (req, res) => {
     return res.status(400).json({ error: "Invalid or expired code" });
   }
 
-  // Code expires after 5 minutes
+  // Expire after 5 minutes
   if (Date.now() - entry.createdAt > 5 * 60 * 1000) {
     delete codes[code];
     return res.status(400).json({ error: "Code expired" });
   }
 
-  console.log(`[TUMITECH V1] Phone ${entry.phone} verified with code ${code}`);
+  console.log(`[TUMITECH V1] ${entry.phone} successfully verified with code ${code}`);
   res.json({ success: true, phone: entry.phone });
 });
 
